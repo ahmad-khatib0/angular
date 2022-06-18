@@ -1,7 +1,23 @@
-<button [disabled]="!allowNewServer" class="btn btn-primary">
+<label for="" class="d-block"> server name (event binding ) </label>
+<input
+  type="text"
+  (input)="onUpdateServerName($event)"
+  class="form-control w-50"
+/>
+<p>{{ serverName }}</p>
+<button
+  [disabled]="!allowNewServer"
+  (click)="onCreateServer()"
+  class="btn btn-primary"
+>
   add service
 </button>
 
 <p>{{ allowNewServer }}</p>
 <p [innerText]="allowNewServer"></p>
+
+<p>{{ serverCreationStatus }}</p>
 <app-server></app-server>
+
+<label for=""> server name (tow way data binding) </label>
+<input type="text" [(ngModel)]="serverName" class="form-control" />
