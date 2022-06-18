@@ -1,0 +1,25 @@
+<!-- add input field which update a property username via tow way binding 
+output the user name via string interpolation 
+add a button which may only be clicked if the username is not an empty
+ upon clicking the button the username input should be empty -->
+
+<div class="my-5">
+  <label for="" class="fs-6 fw-bold text-capitalize"> user name </label>
+  <input type="text" [(ngModel)]="username" class="form-control" />
+  <p class="fw-bold fs-5 text-success">{{ username }} (tow way binding data)</p>
+
+  <!--  -->
+  <input
+    type="text"
+    [(ngModel)]="userNameEventStore"
+    class="form-control mt-4"
+  />
+  <button
+    [disabled]="userNameEventStore.length == 0"
+    (click)="addUserName()"
+    class="btn btn-primary mt-3"
+  >
+    Add user name! (event data binding)
+  </button>
+  <p>{{ userNameEvent }}</p>
+</div>
