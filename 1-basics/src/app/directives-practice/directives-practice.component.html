@@ -1,0 +1,27 @@
+<section>
+  <p>directives practicing</p>
+  <!-- add a button which says display details  -->
+  <!-- add a paragraph with any content of your choice  -->
+  <!-- toggle the displaying of the paragraph with button of the first step  -->
+  <!-- log all buttons clicks in an array and output that array below the secret paragraph 
+ maybe log a timestamp or simply an incrementing button  -->
+  <!-- starting at the 5th log item give all future log items a blue background (via ngStyle)
+and white color (ngClass)  -->
+
+  <button (click)="showParagraph()" class="btn btn-primary">
+    Display Details
+  </button>
+
+  <p *ngIf="isParagraphShown">secret password = 123456</p>
+
+  <ul>
+    <div
+      style="margin: 2rem"
+      *ngFor="let date of clickingTimestamps; let i = index"
+      [ngStyle]="{ backgroundColor: i >= 4 ? 'blue' : 'transparent' }"
+      [ngClass]="{ 'white-text': i >= 4 }"
+    >
+      {{ date }}
+    </div>
+  </ul>
+</section>
