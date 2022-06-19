@@ -1,4 +1,11 @@
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import {
+  Component,
+  ElementRef,
+  EventEmitter,
+  OnInit,
+  Output,
+  ViewChild,
+} from '@angular/core';
 
 @Component({
   selector: 'app-pockpit',
@@ -24,17 +31,33 @@ export class PockpitComponent implements OnInit {
   newServerName = '';
   newServerContent = '';
 
-  onAddServer() {
+  @ViewChild('serverContentInput', { static: true })
+  serverContentInput: ElementRef;
+
+  // onAddServer() {
+  //   this.serverCreated.emit({
+  //     serverName: this.newServerName,
+  //     serverContent: this.newServerContent,
+  //   });
+  // }
+  onAddServer(nameInput: HTMLInputElement) {
+    console.log(this.serverContentInput);
     this.serverCreated.emit({
-      serverName: this.newServerName,
-      serverContent: this.newServerContent,
+      serverName: nameInput.value,
+      serverContent: this.serverContentInput.nativeElement.value,
     });
   }
 
-  onAddBlueprint() {
+  // onAddBlueprint() {
+  //   this.blueprintCreated.emit({
+  //     serverName: this.newServerName,
+  //     serverContent: this.newServerContent,
+  //   });
+  // }
+  onAddBlueprint(nameInput: HTMLInputElement) {
     this.blueprintCreated.emit({
-      serverName: this.newServerName,
-      serverContent: this.newServerContent,
+      serverName: nameInput.value,
+      serverContent: this.serverContentInput.nativeElement.value,
     });
   }
 }
