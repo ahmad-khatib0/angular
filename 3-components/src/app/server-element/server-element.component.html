@@ -1,16 +1,7 @@
 <div class="card my-3">
-  <div class="card-header">{{ element.name }}</div>
+  <!-- <div class="card-header">{{ element.name }}</div> -->
+  <div class="card-header" #heading>{{ name }}</div>
   <ul class="list-group list-gruop-flush">
-    <p>
-      <strong
-        *ngIf="element.type === 'server'"
-        style="color: red"
-        class="list-group-item"
-        >{{ element.content }}</strong
-      >
-      <em *ngIf="element.type === 'blueprint'" class="list-group-item">{{
-        element.content
-      }}</em>
-    </p>
+    <ng-content></ng-content>
   </ul>
 </div>
