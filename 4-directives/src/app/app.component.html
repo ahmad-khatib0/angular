@@ -33,6 +33,45 @@
       </ul>
       <p appBasicHighlight>style me using angular directive</p>
       <p appBetterHighlight>style me using a better directive (renderer)</p>
+      <p appBetterHighlight [defaultColor]="'yellow'" [hightLightColor]="'red'">
+        binding to directive property
+      </p>
+      <p appBetterHighlight="red">renamed property (hover and click)</p>
+
+      <p>why we put * on structural directives , (behind the scene)</p>
+      <ng-template [ngIf]="!onlyOdd">
+        <li
+          *ngFor="let number of evenNumbers"
+          [ngStyle]="{
+            'background-color': number % 2 !== 0 ? 'yellow' : 'transparent'
+          }"
+          [ngClass]="{ odd: number % 2 !== 0 }"
+          class="list-group-item"
+        >
+          {{ number }}
+        </li>
+      </ng-template>
+
+      <p>custom structural directive</p>
+      <div *appUnlessCustomStructuralDirective="!onlyOdd">
+        <li
+          *ngFor="let number of evenNumbers"
+          [ngStyle]="{
+            'background-color': number % 2 !== 0 ? 'yellow' : 'transparent'
+          }"
+          [ngClass]="{ odd: number % 2 !== 0 }"
+          class="list-group-item"
+        >
+          {{ number }}
+        </li>
+      </div>
+
+      <div [ngSwitch]="value">
+        <p *ngSwitchCase="5">value is 5</p>
+        <p *ngSwitchCase="100">value is 100</p>
+        <p *ngSwitchCase="1000">value is 1000</p>
+        <p *ngSwitchDefault>value is default</p>
+      </div>
     </div>
   </div>
 </div>
