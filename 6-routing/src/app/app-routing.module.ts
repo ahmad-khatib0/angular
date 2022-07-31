@@ -48,6 +48,8 @@ const appRoutes: Routes = [
 
 @NgModule({
   imports: [RouterModule.forRoot(appRoutes)],
+  // imports: [RouterModule.forRoot(appRoutes, { useHash: true })],
+  // hash mode for old server providers that dose'nt return index.html file on 404 error
   exports: [RouterModule], //what do you wanna to be accessible when importing
 })
 export class AppRoutingModule {}
