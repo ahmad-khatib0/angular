@@ -39,6 +39,4 @@ export class RecipeService {
   addIngredientsToShoppingList(ingredients: Ingredient[]) {
     this.shoppingListService.addIngredients(ingredients);
   }
-
-  recipeSelected = new EventEmitter<Recipe>();
 }
