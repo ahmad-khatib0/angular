@@ -3,14 +3,14 @@ import { Store } from '@ngrx/store';
 import { Subject } from 'rxjs';
 import { Ingredient } from '../shared/ingredient.mode';
 import { Recipe } from './recipe.model';
+import * as fromApp from '../store/app.reducer';
 import * as shoppingListActions from '../shopping-list/store/shopping-list.actions';
-import * as fromShoppingList from '../shopping-list/store/shopping-list.reducer';
 
 @Injectable()
 export class RecipeService {
   constructor(
     // private shoppingListService: ShoppingListService,
-    private store: Store<fromShoppingList.AppState>
+    private store: Store<fromApp.AppState>
   ) {}
   recipeChanged = new Subject<Recipe[]>();
 
