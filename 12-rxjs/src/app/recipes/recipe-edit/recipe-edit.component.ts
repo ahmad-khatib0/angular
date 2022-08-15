@@ -1,24 +1,24 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormArray, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 import { Store } from '@ngrx/store';
-import { RecipeService } from '../recipe.service';
 import * as fromApp from '../../store/app.reducer';
-import { map } from 'rxjs';
+import { map, Subscription } from 'rxjs';
+import * as RecipesActions from '../store/recipe.actions';
 
 @Component({
   selector: 'app-recipe-edit',
   templateUrl: './recipe-edit.component.html',
   styleUrls: ['./recipe-edit.component.scss'],
 })
-export class RecipeEditComponent implements OnInit {
+export class RecipeEditComponent implements OnInit, OnDestroy {
   constructor(
     private route: ActivatedRoute,
-    private recipeService: RecipeService,
     private router: Router,
     private store: Store<fromApp.AppState>
   ) {}
   recipeForm: FormGroup;
+  private storeSub: Subscription;
 
   ngOnInit(): void {
     this.route.params.subscribe((params: Params) => {
@@ -29,10 +29,20 @@ export class RecipeEditComponent implements OnInit {
     });
   }
 
+  ngOnDestroy(): void {
+    if (this.storeSub) this.storeSub.unsubscribe();
+  }
+
   onSubmit() {
     if (this.editMode)
-      this.recipeService.updateRecipe(this.id, this.recipeForm.value);
-    else this.recipeService.addRecipe(this.recipeForm.value);
+      this.store.dispatch(
+        new RecipesActions.UpdateRecipe({
+          index: this.id,
+          newRecipe: this.recipeForm.value,
+        })
+      );
+    else
+      this.store.dispatch(new RecipesActions.AddRecipe(this.recipeForm.value));
     this.onCancel();
   }
 
@@ -69,7 +79,7 @@ export class RecipeEditComponent implements OnInit {
 
     if (this.editMode) {
       // const recipe = this.recipeService.getRecipe(this.id);
-      this.store
+      this.storeSub = this.store
         .select('recipes')
         .pipe(
           map((recipeState) => {
